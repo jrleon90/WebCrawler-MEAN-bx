@@ -1,0 +1,33 @@
+{
+  "name": "Web-Crawler",
+  "version": "0.0.0",
+  "description": "Web Crawler develop to find communities.",
+  "main": "app.js",
+  "author": "Jose Leon <jrleon90@gmail.com>",
+  "dependencies": {
+    "async": "^2.3.0",
+    "cheerio": "^0.22.0",
+    "ejs": "^2.5.6",
+    "express": "*",
+    "request": "^2.81.0",
+    "simplecrawler": "^1.1.2",
+    "socket.io": "~0.9.14"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.4.0",
+    "gulp-inject": "^4.2.0",
+    "gulp-jshint": "^2.0.4",
+    "gulp-minify": "^1.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0",
+    "jshint": "^2.9.4",
+    "nodemon": "^1.11.0",
+    "pump": "^1.0.2",
+    "wiredep": "^4.0.0"
+  },
+  "license": "ISC"
+}

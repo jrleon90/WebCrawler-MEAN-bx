@@ -1,0 +1,6 @@
+---
+applications:
+- name: WebCrawler-MEAN-bx
+  host: WebCrawler-MEAN-bx
+  memory: 128M
+  command: node app.js
