@@ -5,13 +5,17 @@
   "main": "app.js",
   "author": "Jose Leon <jrleon90@gmail.com>",
   "dependencies": {
+    "angular": "^1.6.4",
     "async": "^2.3.0",
+    "body-parser": "^1.17.2",
+    "bootstrap": "^3.3.7",
     "cheerio": "^0.22.0",
     "ejs": "^2.5.6",
     "express": "*",
     "request": "^2.81.0",
     "simplecrawler": "^1.1.2",
-    "socket.io": "~0.9.14"
+    "socket.io": "~0.9.14",
+    "watson-developer-cloud": "^2.32.1"
   },
   "scripts": {
     "start": "node app.js"

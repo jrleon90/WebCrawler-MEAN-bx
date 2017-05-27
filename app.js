@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var Crawler = require('simplecrawler');
+var nluRouter = require('./src/api/nlu');
 
 var port = process.env.PORT || 8080;
 
@@ -8,6 +9,9 @@ app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
+
+app.use('/nlu',nluRouter);
 
 app.get('/', function(req,res){
 	res.render('index');
