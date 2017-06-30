@@ -1,23 +1,25 @@
-<head>
+<html>
+    <head>
 
-    <!-- inject:css -->
-    <link rel="stylesheet" href="/dist/css/style.min.css">
-    <!-- endinject -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <!-- inject:js -->
-    <script src="/dist/js/script.min.js"></script>
-    <!-- endinject -->
+        <!-- inject:css -->
+        <link rel="stylesheet" href="/dist/css/style.min.css">
+        <!-- endinject -->
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <!-- inject:js -->
+        <script src="/dist/js/script.min.js"></script>
+        <!-- endinject -->
 
-</head>
-<section class="search-form">
-    <img src="/img/logo.png" class="img-rounded img-responsive" width="10%">
-    <div class="col-md-9 col-md-offset-3 search-input">
-    <form action="/crawl" method="post">
-        <div class="col-lg-6">
-            <input type="text" name="searchTerm" class="form-control" id="searchTerm" placeholder="Search...">
+    </head>
+    <section class="search-form">
+        <img src="/img/logo.png" class="img-rounded img-responsive" width="10%">
+        <div class="col-md-9 col-md-offset-3 search-input">
+        <form action="/crawl" method="post">
+            <div class="col-lg-6">
+                <input type="text" name="searchTerm" class="form-control searchTerm" id="searchTerm" placeholder="Search...">
+            </div>
+            <button type="submit" class="btn btn-success">Search</button>
+        </form>
         </div>
-        <button type="submit" class="btn btn-success">Search</button>
-    </form>
-    </div>
-</section>
+    </section>
 
+</html>

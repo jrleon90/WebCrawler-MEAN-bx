@@ -5,6 +5,8 @@ var nluRouter = require('./src/api/nlu');
 var crawlerRouter = require('./src/api/crawler');
 
 var port = process.env.PORT || 8080;
+require('dotenv').config();
+
 
 app.set('views', './src/views');
 app.set('view engine', 'ejs');

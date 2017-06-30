@@ -19,6 +19,19 @@
 }
 
 .search-input{
-    positio:relative;
+    position:relative;
     top: 1em;
+}
+
+@media only screen and (max-width: 768px)  {
+    .search-input{
+        width: 45%;
+        position: relative;
+        left:27%;
+    }
+    button{
+        position:relative;
+        left:47%;
+        top:1em;
+    }
 }
