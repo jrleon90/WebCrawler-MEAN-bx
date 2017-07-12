@@ -10,10 +10,13 @@ var youtube = require('youtube-node');
 var Twitter = require('twitter');
 var async = require('async');
 var request = require('request-promise');
+var http = require('http');
+var https = require('https');
 require('dotenv').config();
 
 crawlerRoute.use(bodyParser.urlencoded({ extended: false }));
 crawlerRoute.use(bodyParser.json());
+var YouTubeQuery;
 
 crawlerRoute.post('/', function(req,res){
     var word = req.body.searchTerm;
@@ -52,15 +55,40 @@ crawlerRoute.post('/', function(req,res){
           if(error){
               console.log('error: '+error);
           }else{
-              //console.log('YouTube: '+Object.getOwnPropertyNames(result));
-              //console.log('YouTube: '+result.item);
-              for(var k in result.items){
-                  console.log('title: '+result.items[k].snippet.channelTitle);
-              }
+              //TODO: Find way to wait for this callback
+              /*for(var k in result.items){
+                getYoutubeData(result.items[k].snippet.channelId,function(data){
+                    setYoutubeData(data);
+                });*/
               resolve(result);
-          }
+
+              }
       })
    });
+
+   var YouTubeDataPromise = new Promise(function(resolve,reject){
+       console.log('Promise YT: '+YouTubeQuery);
+   });
+
+   function setYoutubeData(data)
+   {
+       YouTubeData.push(data);
+   }
+
+   var getYoutubeStatistics =  function getYoutubeData(arrayData)
+   {
+       console.log('Enter In here: '+Object.getOwnPropertyNames(arrayData));
+       var Statistics;
+
+       var YoutubestatiscticPromise = new Promise(function(resolve,reject){
+               var req = https.get('https://www.googleapis.com/youtube/v3/channels?part=statistics&id=' + arrayData[0].snippet.channelId + '&key=' + process.env.YOUTUBE_API_KEY, function(response) {
+                  response.on('data',function(chunk){ Statistics += chunk; });
+                  response.on('end',function(){resolve(Statistics)});
+               });
+
+       });
+   return YoutubestatiscticPromise;
+   };
 
    var twitterPromise = new Promise(function(resolve,reject){
        client.get('users/search', {q: word}, function (error, tweets, response) {
@@ -74,16 +102,30 @@ crawlerRoute.post('/', function(req,res){
        });
    });
 
+    var completePromise = function renderDataView()
+    {
+      var RenderView = new Promise(function(resolve,reject){
+          console.log('Done');
+          resolve('data');
+      });
+      return RenderView;
+    };
+
 
     Promise.all([twitterPromise, youtubePromise]).then(function(result){
-        console.log('Twitter done: '+result);
-        var totalCount = 0;
-        for(var i=0;i<result.length;i++){
-            totalCount = totalCount+result[i];
-        }
-        console.log('Total: '+totalCount);
-        res.render('result',{data:totalCount,word:word});
-    })
+        var YouTubeStatistics = [];
+
+            getYoutubeStatistics(result[1].items).then(function (data) {
+                YouTubeStatistics.push(data);
+
+                completePromise().then(function(dataPromise){
+                   console.log('Return: '+dataPromise);
+                    res.render(dataPromise,{data:YouTubeStatistics});
+
+                });
+            });
+        
+    });
 
 
 
