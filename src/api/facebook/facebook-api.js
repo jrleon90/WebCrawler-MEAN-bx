@@ -9,18 +9,27 @@ require('dotenv').config();
 var facebookFanCount = (urls, iterateCount) => {
     var fbFanCountPromise = new Promise((resolve, reject) => {
       fbCount = 0;
+      fbData = [];
       for (var i in urls) {
         https.get(urls[i], (response) => {
           //fbCount = fbCount + response.data.fan_count;
           response.setEncoding('utf-8');
           response.on('data', (data) => {
             var dataJson = JSON.parse(data);
+            fbData.push(dataJson);
             fbCount += dataJson.fan_count;
           });
 
           iterateCount++;
           if (iterateCount === urls.length) {
-            resolve(fbCount);
+            fbData.sort((a, b) => {
+              return b.fan_count - a.fan_count;
+            });
+            var fbObject = {
+              fbCount: fbCount,
+              fbData: fbData,
+            };
+            resolve(fbObject);
           }
         });
       }
@@ -38,7 +47,7 @@ var getFacebookCount = (query) => {
           } else {
             var urls = [];
             for (var k in response.data) {
-              urls.push(`https://graph.facebook.com/v2.10/${response.data[k].id}?access_token=${process.env.FACEBOOK_API_KEY}&fields=name,fan_count`);
+              urls.push(`https://graph.facebook.com/v2.10/${response.data[k].id}?access_token=${process.env.FACEBOOK_API_KEY}&fields=name,fan_count,link`);
             }
 
             resolve(urls);

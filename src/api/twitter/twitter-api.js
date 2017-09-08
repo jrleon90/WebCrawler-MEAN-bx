@@ -20,11 +20,21 @@ var getTwitterCount = (query) => {
       clientTw.get('users/search', { q: query }, function (error, tweets, response) {
           if (!error) {
             var twitterCount = 0;
+            console.log('TW Data', tweets[2]);
             for (var i = 0; i < tweets.length; i++) {
-              twitterCount = twitterCount + tweets[i].followers_count;
+              twitterCount += tweets[i].followers_count;
             }
 
-            resolve(twitterCount);
+            tweets.sort((a, b) => {
+                return b.followers_count - a.followers_count;
+              });
+
+            var twitterObj = {
+              twitterCount: twitterCount,
+              sortTwData: tweets,
+            };
+
+            resolve(twitterObj);
           }
         });
     });

@@ -6,10 +6,11 @@ var https = require('https');
 var Youtube = require('youtube-node');
 require('dotenv').config();
 
+var ytclient = new Youtube();
+ytclient.setKey(process.env.YOUTUBE_API_KEY);
+
 var getYoutubeChannels = (query) => {
   var youtubePromise = new Promise((resolve, reject) => {
-      var ytclient = new Youtube();
-      ytclient.setKey(process.env.YOUTUBE_API_KEY);
       ytclient.search(query, 20, (error, result) => {
           if (error) {
             console.log('error: ' + error);
@@ -30,18 +31,26 @@ var getYoutubeChannels = (query) => {
 var getYouTubeStatistics = (urls, iterateCount) => {
   var youtubeStatsPromise = new Promise((resolve, reject) => {
     var ytCount = 0;
+    var sortYT = [];
     for (var i in urls) {
       https.get(urls[i], (response) => {
         //fbCount = fbCount + response.data.fan_count;
         response.setEncoding('utf-8');
         response.on('data', (data) => {
           var dataJson = JSON.parse(data);
+          sortYT.push(dataJson);
           ytCount += parseInt(dataJson.items[0].statistics.subscriberCount);
         });
 
+        sortYT.sort((a, b) => {
+          return b.items[0].statistics.subscriberCount - a.items[0].statistics.subscriberCount;
+        });
         iterateCount++;
         if (iterateCount === urls.length) {
-          resolve(ytCount);
+
+          var YTObject = { ytCount: ytCount,
+                          ytSort: sortYT, };
+          resolve(YTObject);
         }
       });
     }
