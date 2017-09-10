@@ -1,2 +1,33 @@
-<h1>Data Page</h1>
-<p><%=data%></p>
+<!DOCTYPE html>
+  <h1>Data Page</h1>
+  <h2>Search: <%= Query %> </h2>
+  <h2>Twitter Count: <%= TTCount.twitterCount %> </h2>
+  <ul>
+  <% for(var i=0; i<5; i++) {%>
+     <a target="_blank" href="https://twitter.com/<%=TTCount.sortTwData[i].screen_name%>"><li><%= TTCount.sortTwData[i].name %></li></a>
+     <p>Followers: <%= TTCount.sortTwData[i].followers_count %></p>
+  <% } %>
+  </ul>
+  <h2>Facebook Count: <%= FBCount.fbCount %> </h2>
+<ul>
+  <% for(var i=0; i<5; i++) {%>
+     <a target="_blank" href="<%= FBCount.fbData[i].link %>"><li><%= FBCount.fbData[i].name %> </li></a>
+     <p>Followers: <%= FBCount.fbData[i].fan_count %></p>
+  <% } %>
+</ul>
+  <h2>YouTube Count: <%= YTCount.ytCount %> </h2>
+  <ul>
+  <% for(var i=0; i<5; i++) {%>
+     <li><%= YTCount.ytSort[i].items[0] %></li>
+  <% } %>
+  </ul>
+<h2>Search Result</h2>
+<ul>
+  <% for(var i=0; i<bingSearch.length; i++) {%>
+    <li>
+      <a href="<%=bingSearch[i].displayUrl %>"><%= bingSearch[i].name %></a>
+      <p><strong><%= bingSearch[i].displayUrl %></strong></p>
+      <p><%= bingSearch[i].snippet %></p>
+    </li>
+  <% } %>
+</ul>
