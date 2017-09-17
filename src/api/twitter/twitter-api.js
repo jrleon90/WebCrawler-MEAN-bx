@@ -20,7 +20,6 @@ var getTwitterCount = (query) => {
       clientTw.get('users/search', { q: query }, function (error, tweets, response) {
           if (!error) {
             var twitterCount = 0;
-            console.log('TW Data', tweets[2]);
             for (var i = 0; i < tweets.length; i++) {
               twitterCount += tweets[i].followers_count;
             }

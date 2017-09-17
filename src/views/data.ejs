@@ -25,7 +25,8 @@
   <h2>YouTube Count: <%= YTCount.ytCount %> </h2>
   <ul>
   <% for(var i=0; i<5; i++) {%>
-     <li><%= YTCount.ytSort[i].items[0] %></li>
+     <a target="_blank" href="https://www.youtube.com/channel/<%=YTCount.ytSort[i].items[0].id%>"><li><%= YTCount.ytSort[i].items[0].snippet.title %></li></a>
+     <p>Followers: <%= YTCount.ytSort[i].items[0].statistics.subscriberCount %></p>
   <% } %>
   </ul>
 <h2>Search Result</h2>
