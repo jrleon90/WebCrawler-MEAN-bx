@@ -33,6 +33,19 @@ var getYoutubeChannels = (query) => {
   return youtubePromise;
 };
 
+var checkElementInArray = (array, element) => {
+  if (array.length <= 0){
+    return true;
+  } else {
+    for (var i in array) {
+       if (array[i].items[0].id === element.items[0].id) {
+         return false;
+       }
+    }
+    return true;
+  }
+};
+
 var getYouTubeStatistics = (ytObj, iterateCount) => {
   var youtubeStatsPromise = new Promise((resolve, reject) => {
     var ytCount = 0;
@@ -41,10 +54,12 @@ var getYouTubeStatistics = (ytObj, iterateCount) => {
     for (var i in ytObj.urls) {
       request.get(ytObj.urls[i], (error, response, body) => {
         //fbCount = fbCount + response.data.fan_count;
-        response.setEncoding('utf-8');
         var bodyObj = JSON.parse(body);
-        console.log('body', bodyObj.items[0].snippet.title);
-          sortYT.push(bodyObj);
+        if (checkElementInArray(sortYT, bodyObj)){
+        sortYT.push(bodyObj);
+      }
+
+          console.log('answer', checkElementInArray(sortYT, bodyObj));
           ytCount += parseInt(bodyObj.items[0].statistics.subscriberCount);
 
         sortYT.sort((a, b) => {
@@ -52,7 +67,6 @@ var getYouTubeStatistics = (ytObj, iterateCount) => {
         });
         iterateCount++;
         if (iterateCount === ytObj.urls.length) {
-          console.log('name', sortYT[0].items);
           var YTObject = { ytCount: ytCount,
                           ytSort: sortYT, };
           resolve(YTObject);
