@@ -10,21 +10,21 @@
   <h2>Search: <%= Query %> </h2>
   <h2>Twitter Count: <%= TTCount.twitterCount %> </h2>
   <ul>
-  <% for(var i=0; i<5; i++) {%>
+  <% for(var i=0; i < TTCount.sortTwData.length; i++) {%>
      <a target="_blank" href="https://twitter.com/<%=TTCount.sortTwData[i].screen_name%>"><li><%= TTCount.sortTwData[i].name %></li></a>
      <p>Followers: <%= TTCount.sortTwData[i].followers_count %></p>
   <% } %>
   </ul>
   <h2>Facebook Count: <%= FBCount.fbCount %> </h2>
 <ul>
-  <% for(var i=0; i<5; i++) {%>
+  <% for(var i=0; i<FBCount.fbData.length; i++) {%>
      <a target="_blank" href="<%= FBCount.fbData[i].link %>"><li><%= FBCount.fbData[i].name %> </li></a>
      <p>Followers: <%= FBCount.fbData[i].fan_count %></p>
   <% } %>
 </ul>
   <h2>YouTube Count: <%= YTCount.ytCount %> </h2>
   <ul>
-  <% for(var i=0; i<5; i++) {%>
+  <% for(var i=0; i<YTCount.ytSort.length; i++) {%>
      <a target="_blank" href="https://www.youtube.com/channel/<%=YTCount.ytSort[i].items[0].id%>"><li><%= YTCount.ytSort[i].items[0].snippet.title %></li></a>
      <p>Followers: <%= YTCount.ytSort[i].items[0].statistics.subscriberCount %></p>
   <% } %>
