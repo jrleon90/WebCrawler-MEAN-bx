@@ -32,7 +32,6 @@ var getTwitterCount = (query) => {
               twitterCount: twitterCount,
               sortTwData: tweets,
             };
-            console.log('tw', twitterObj.sortTwData.length);
             resolve(twitterObj);
           }
         });

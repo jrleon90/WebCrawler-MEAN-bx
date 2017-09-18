@@ -19,12 +19,11 @@ var facebookFanCount = (urls, iterateCount) => {
             fbData.push(dataJson);
             fbCount += dataJson.fan_count;
           });
-
+          fbData.sort((a, b) => {
+            return b.fan_count - a.fan_count;
+          });
           iterateCount++;
           if (iterateCount === urls.length) {
-            fbData.sort((a, b) => {
-              return b.fan_count - a.fan_count;
-            });
             var fbObject = {
               fbCount: fbCount,
               fbData: fbData,

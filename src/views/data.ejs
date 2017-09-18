@@ -17,7 +17,7 @@
   </ul>
   <h2>Facebook Count: <%= FBCount.fbCount %> </h2>
 <ul>
-  <% for(var i=0; i<FBCount.fbData.length; i++) {%>
+  <% for(var i=0; i<FBCount.fbData.length - 1; i++) {%>
      <a target="_blank" href="<%= FBCount.fbData[i].link %>"><li><%= FBCount.fbData[i].name %> </li></a>
      <p>Followers: <%= FBCount.fbData[i].fan_count %></p>
   <% } %>
