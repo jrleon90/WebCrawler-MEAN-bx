@@ -28,11 +28,17 @@ var getTwitterCount = (query) => {
                 return b.followers_count - a.followers_count;
               });
 
+            if (tweets.length >= 5) {
             var twitterObj = {
               twitterCount: twitterCount,
               sortTwData: tweets,
             };
             resolve(twitterObj);
+          } else {
+            reject('Not enough results');
+          }
+          }else {
+            reject(error);
           }
         });
     });

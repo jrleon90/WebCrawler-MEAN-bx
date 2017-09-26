@@ -14,7 +14,11 @@ var getBingSearch = (query) => {
     bing.web(query, {
       count: 50,
     }, (error, res, body) => {
+      if (error){
+        reject(error);
+      }else{
       resolve(body.webPages.value);
+    }
     });
   });
   return bingSearchPromise;

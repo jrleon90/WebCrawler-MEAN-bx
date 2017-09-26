@@ -43,6 +43,9 @@ crawlerRoute.post('/', function (req, res) {
                 });
               }).catch((errorMessage) => {
                 console.log('Error', errorMessage);
+                res.render('error', {
+                  Query: word,
+                })
               });
 
   // elasticsearchApi.getIndexData().then((elasticResult) => {

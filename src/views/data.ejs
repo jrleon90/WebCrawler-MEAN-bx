@@ -1,41 +1,196 @@
 <!DOCTYPE html>
-<!-- inject:css -->
-<link rel="stylesheet" href="/dist/css/style.min.css">
-<!-- endinject -->
-<link href="/css/bootstrap.min.css" rel="stylesheet">
-<!-- inject:js -->
-<script src="/dist/js/script.min.js"></script>
-<!-- endinject -->
-  <h1>Data Page</h1>
-  <h2>Search: <%= Query %> </h2>
-  <h2>Twitter Count: <%= TTCount.twitterCount %> </h2>
-  <ul>
-  <% for(var i=0; i < TTCount.sortTwData.length; i++) {%>
-     <a target="_blank" href="https://twitter.com/<%=TTCount.sortTwData[i].screen_name%>"><li><%= TTCount.sortTwData[i].name %></li></a>
-     <p>Followers: <%= TTCount.sortTwData[i].followers_count %></p>
-  <% } %>
-  </ul>
-  <h2>Facebook Count: <%= FBCount.fbCount %> </h2>
-<ul>
-  <% for(var i=0; i<FBCount.fbData.length - 1; i++) {%>
-     <a target="_blank" href="<%= FBCount.fbData[i].link %>"><li><%= FBCount.fbData[i].name %> </li></a>
-     <p>Followers: <%= FBCount.fbData[i].fan_count %></p>
-  <% } %>
-</ul>
-  <h2>YouTube Count: <%= YTCount.ytCount %> </h2>
-  <ul>
-  <% for(var i=0; i<YTCount.ytSort.length; i++) {%>
-     <a target="_blank" href="https://www.youtube.com/channel/<%=YTCount.ytSort[i].items[0].id%>"><li><%= YTCount.ytSort[i].items[0].snippet.title %></li></a>
-     <p>Followers: <%= YTCount.ytSort[i].items[0].statistics.subscriberCount %></p>
-  <% } %>
-  </ul>
-<h2>Search Result</h2>
-<ul>
-  <% for(var i=0; i<bingSearch.length; i++) {%>
-    <li>
-      <a href="<%=bingSearch[i].displayUrl %>"><%= bingSearch[i].name %></a>
-      <p><strong><%= bingSearch[i].displayUrl %></strong></p>
-      <p><%= bingSearch[i].snippet %></p>
-    </li>
-  <% } %>
-</ul>
+<head>
+  <title>Crawler</title>
+  <!-- inject:css -->
+  <link rel="stylesheet" href="/dist/css/style.min.css">
+  <!-- endinject -->
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <!-- inject:js -->
+  <script src="/dist/js/script.min.js"></script>
+  <!-- endinject -->
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <meta name="author" content="Quilt">
+  <meta name="description" content="Quilt">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500" rel="stylesheet">
+</head>
+<div class="container">
+  <div class="text-center">
+    <img src="img/logo.png">
+    <h1>Data page</h1>
+    <h4>
+      <strong>SEARCH: </strong>
+      <span><%= Query %></span>
+    </h4>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div id="columnchart_values"></div>
+    </div>
+  </div>
+  <div class="row canal-donut">
+    <h3 class="text-center">TWITTER</h3>
+    <div class="col-md-7">
+      <div id="donutchartT"></div>
+    </div>
+    <div class="col-md-5">
+      <ul>
+      <% for(var i=0; i < TTCount.sortTwData.length; i++) {%>
+        <li>
+					<a target="_blank" href="https://twitter.com/<%=TTCount.sortTwData[i].screen_name%>"><%= TTCount.sortTwData[i].name %></a>
+				  <p><strong>Followers: </strong><%= TTCount.sortTwData[i].followers_count %></p>
+				</li>
+      <% } %>
+      </ul>
+    </div>
+  </div>
+  <div class="row canal-donut">
+    <h3 class="text-center">FACEBOOK</h3>
+    <div class="col-md-7">
+      <div id="donutchartF"></div>
+    </div>
+    <div class="col-md-5">
+      <ul>
+        <% for(var i=0; i<FBCount.fbData.length - 1; i++) {%>
+          <li>
+            <a target="_blank" href="<%= FBCount.fbData[i].link %>"><%= FBCount.fbData[i].name %></a>
+            <p><strong>Followers: </strong><%= FBCount.fbData[i].fan_count %></p>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+  <div class="row canal-donut">
+    <h3 class="text-center">YOUTUBE</h3>
+    <div class="col-md-7">
+      <div id="donutchartY"></div>
+    </div>
+    <div class="col-md-5">
+      <ul>
+        <% for(var i=0; i<YTCount.ytSort.length; i++) {%>
+          <a target="_blank" href="https://www.youtube.com/channel/<%=YTCount.ytSort[i].items[0].id%>"><%= YTCount.ytSort[i].items[0].snippet.title %></a>
+					<p><strong>Followers: </strong><%= YTCount.ytSort[i].items[0].statistics.subscriberCount %></p>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+  <div class="row last">
+    <h3 class="text-center search">SEARCH RESULT</h3>
+    <div class="col-md-10 col-md-offset-1">
+      <ul>
+        <% for(var i=0; i<bingSearch.length; i++) {%>
+          <li>
+            <a href="<%=bingSearch[i].displayUrl %>"><%= bingSearch[i].name %></a>
+							<p><strong><%= bingSearch[i].displayUrl %></strong></p>
+							<p><%= bingSearch[i].snippet %></p>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script type="text/javascript">
+			google.charts.load("current", {packages:['corechart']});
+			google.charts.setOnLoadCallback(drawChart);
+			function drawChart() {
+				var data = google.visualization.arrayToDataTable([
+					["Canal", "Count", { role: "style" } ],
+					["Twitter", <%= TTCount.twitterCount %>, "#00aced"],
+					["Facebook", <%= FBCount.fbCount %>, "#3b5998"],
+					["Youtube", <%= YTCount.ytCount %>, "#cc181e"],
+				]);
+
+				var view = new google.visualization.DataView(data);
+				view.setColumns([0, 1,
+							 { calc: "stringify",
+								 sourceColumn: 1,
+								 type: "string",
+								 role: "annotation" },
+							 2]);
+
+				var options = {
+					width: '100%',
+					height: 400,
+					bar: {groupWidth: "70%"},
+					legend: { position: "none" },
+				};
+				var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+				chart.draw(view, options);
+		}
+		</script>
+		<script type="text/javascript">
+	      google.charts.load("current", {packages:["corechart"]});
+	      google.charts.setOnLoadCallback(drawChart);
+	      function drawChart() {
+          var arrayData = [
+	          ['Name', 'Followers'],
+            ['<%- TTCount.sortTwData[0].name %>',	parseInt('<%- TTCount.sortTwData[0].followers_count %>')],
+	          ['<%- TTCount.sortTwData[1].name %>',	parseInt('<%- TTCount.sortTwData[1].followers_count %>')],
+	          ['<%- TTCount.sortTwData[2].name %>',	parseInt('<%- TTCount.sortTwData[2].followers_count %>')],
+	          ['<%- TTCount.sortTwData[3].name %>',	parseInt('<%- TTCount.sortTwData[3].followers_count %>')],
+	          ['<%- TTCount.sortTwData[4].name %>',	parseInt('<%- TTCount.sortTwData[4].followers_count %>')]
+	        ]
+	        var data = google.visualization.arrayToDataTable(arrayData);
+
+	        var options = {
+	          title: 'Top 5',
+	          pieHole: 0.4,
+	          height: 400,
+	        };
+
+	        var chart = new google.visualization.PieChart(document.getElementById('donutchartT'));
+	        chart.draw(data, options);
+	      }
+	    </script>
+	    <script type="text/javascript">
+	      google.charts.load("current", {packages:["corechart"]});
+	      google.charts.setOnLoadCallback(drawChart);
+	      function drawChart() {
+	        var data = google.visualization.arrayToDataTable([
+	          ['Name', 'Followers'],
+	          ['<%- FBCount.fbData[0].name %>',	parseInt('<%- FBCount.fbData[0].fan_count %>')],
+	          ['<%- FBCount.fbData[1].name %>',	parseInt('<%- FBCount.fbData[1].fan_count %>')],
+	          ['<%- FBCount.fbData[2].name %>',	parseInt('<%- FBCount.fbData[2].fan_count %>')],
+	          ['<%- FBCount.fbData[3].name %>',	parseInt('<%- FBCount.fbData[3].fan_count %>')],
+	          ['<%- FBCount.fbData[4].name %>',	parseInt('<%- FBCount.fbData[4].fan_count %>')]
+	        ]);
+
+	        var options = {
+	          title: 'Top 5',
+	          pieHole: 0.4,
+	          height: 400,
+	        };
+
+	        var chart = new google.visualization.PieChart(document.getElementById('donutchartF'));
+	        chart.draw(data, options);
+	      }
+	    </script>
+	    <script type="text/javascript">
+	      google.charts.load("current", {packages:["corechart"]});
+	      google.charts.setOnLoadCallback(drawChart);
+	      function drawChart() {
+	        var data = google.visualization.arrayToDataTable([
+	          ['Name', 'Followers'],
+	          ['<%- YTCount.ytSort[0].items[0].snippet.title %>',	parseInt('<%- YTCount.ytSort[0].items[0].statistics.subscriberCount %>')],
+	          ['<%- YTCount.ytSort[1].items[0].snippet.title %>',	parseInt('<%- YTCount.ytSort[1].items[0].statistics.subscriberCount %>')],
+	          ['<%- YTCount.ytSort[2].items[0].snippet.title %>',	parseInt('<%- YTCount.ytSort[2].items[0].statistics.subscriberCount %>')],
+	          ['<%- YTCount.ytSort[3].items[0].snippet.title %>',	parseInt('<%- YTCount.ytSort[3].items[0].statistics.subscriberCount %>')],
+	          ['<%- YTCount.ytSort[4].items[0].snippet.title %>',	parseInt('<%- YTCount.ytSort[4].items[0].statistics.subscriberCount %>')]
+	        ]);
+
+	        var options = {
+	          title: 'Top 5',
+	          pieHole: 0.4,
+	          height: 400,
+	        };
+
+	        var chart = new google.visualization.PieChart(document.getElementById('donutchartY'));
+	        chart.draw(data, options);
+	      }
+	    </script>

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-
         <!-- inject:css -->
         <link rel="stylesheet" href="/dist/css/style.min.css">
         <!-- endinject -->
@@ -12,15 +11,24 @@
         <title>WTF Web Crawler</title>
     </head>
     <section class="search-form">
-        <img src="/img/logo.png" class="img-rounded img-responsive" width="10%">
-        <div class="col-md-9 col-md-offset-3 search-input">
-        <form action="/crawl" method="post">
-            <div class="col-lg-6">
-                <input type="text" name="searchTerm" class="form-control searchTerm" id="searchTerm" placeholder="Search...">
-            </div>
-            <button type="submit" class="btn btn-success">Search</button>
-        </form>
-        </div>
+      <body>
+  <div class="container">
+    <div class="wrapper text-center">
+      <img src="img/logo.png">
+      <form action="/crawl" method="POST">
+      <div class="input-group">
+        <input type="text" name="searchTerm" class="form-control" placeholder="Search for...">
+        <span class="input-group-btn">
+          <button class="btn" type="button">SEARCH</button>
+      </form>
+        </span>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
     </section>
 
 </html>

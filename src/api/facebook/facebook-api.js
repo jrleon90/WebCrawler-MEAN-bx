@@ -48,8 +48,11 @@ var getFacebookCount = (query) => {
             for (var k in response.data) {
               urls.push(`https://graph.facebook.com/v2.10/${response.data[k].id}?access_token=${process.env.FACEBOOK_API_KEY}&fields=name,fan_count,link`);
             }
-
+            if (urls.length >= 5){
             resolve(urls);
+          }else {
+            reject('Not enough results');
+          }
 
           }
 

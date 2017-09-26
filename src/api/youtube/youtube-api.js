@@ -55,11 +55,11 @@ var getYouTubeStatistics = (ytObj, iterateCount) => {
       request.get(ytObj.urls[i], (error, response, body) => {
         //fbCount = fbCount + response.data.fan_count;
         var bodyObj = JSON.parse(body);
+
         if (checkElementInArray(sortYT, bodyObj)){
         sortYT.push(bodyObj);
       }
 
-          console.log('answer', checkElementInArray(sortYT, bodyObj));
           ytCount += parseInt(bodyObj.items[0].statistics.subscriberCount);
 
         sortYT.sort((a, b) => {
@@ -69,7 +69,11 @@ var getYouTubeStatistics = (ytObj, iterateCount) => {
         if (iterateCount === ytObj.urls.length) {
           var YTObject = { ytCount: ytCount,
                           ytSort: sortYT, };
-          resolve(YTObject);
+          if (sortYT.length >= 5){
+            resolve(YTObject);
+          }else {
+            reject('Not enough results');
+          }
         }
       });
     }
